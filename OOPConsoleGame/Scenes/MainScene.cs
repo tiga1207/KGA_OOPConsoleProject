@@ -12,7 +12,9 @@ namespace OOPConsoleGame.Scenes
         //메인 맵
 
 
-        //상점, 
+        //상점, 필드, 인벤토리, 장착
+
+
 
 
 
