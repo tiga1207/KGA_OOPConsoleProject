@@ -16,6 +16,8 @@ namespace OOPConsoleGame.Management
         public abstract void Input();
         public abstract void Update();
         public abstract void Result();
+        public abstract void NextStep();
+
         public void Wait()
         {
             Console.WriteLine("아무 키나 눌러 진행하세요");

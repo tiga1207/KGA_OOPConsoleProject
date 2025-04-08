@@ -20,7 +20,7 @@ namespace OOPConsoleGame.Management
         public static Stack<SceneManager> SceneStackManager;
 
         private static Player player;
-        public static Player Player { get { return player; } }
+        public static Player Player1 { get { return player; } }
 
         //게임 종료 조건
         public static bool isGameOver;
@@ -34,9 +34,12 @@ namespace OOPConsoleGame.Management
             isGameOver = false;
 
             //2. 플레이어 초기 설정
-            //Player(int hp,int allStatus, int gold, int score)
-            player = new Player(100, 10, 100, 0);
+            //최대(체력,마나),공격력,보유골드
+            player = new Player(100, 100, 10, 0);
 
+            //플레이어 사망 이벤트 구독
+            player.OnPlayerDied += PlayerDied;
+            
 
             //3. 씬 설정
             scene = new Dictionary<string, SceneManager>();
@@ -54,10 +57,23 @@ namespace OOPConsoleGame.Management
             currentScene = scene["Title"];   
         }
 
+        private static void PlayerDied()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t---------------------------------\n\n");
+            Console.WriteLine("\t\t-----------사망하셨습니다.--------\n\n");
+            Console.WriteLine("\t\t---------------------------------\n\n");
+            Console.WriteLine("아무 키나 누르면 게임을 메인 마을로 이동합니다.");
+            Console.ReadLine();
+            ChangeScene("Main");
+            player.HP = (int)(player.MaxHP * 0.1) >0 ? (int)(player.MaxHP * 0.1) : 1;
+            player.MP = (int)(player.MaxMP * 0.1);
+        }
+
         //2. 게임 구동
         public static void GameUpdate()
         {
-            while (isGameOver == false)
+            while (!isGameOver)
             {
                 Console.Clear();
 
@@ -67,28 +83,29 @@ namespace OOPConsoleGame.Management
                 currentScene.Result();
             }
         }
+        
 
-        //3. 게임 종료
-        public static void GameOver(string str)
-        {
-            Console.Clear();
-            Console.WriteLine("\t\t---------------------------------\n\n");
-            Console.WriteLine("\t\t-----------사망하셨습니다.--------\n\n");
-            Console.WriteLine("\t\t---------------------------------\n\n");
-            Console.WriteLine(str);//사망 사유
-            //Console.WriteLine($"플레이어의 점수는 {Player.Score}점 입니다 !!");
-            //if (Player.Score > 100)
-            //{
-            //    Console.WriteLine("상당한 점수입니다 ! ! !");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("형편없군요 . . 다음에는 분발해보세요!");
-            //}
-            Console.WriteLine("아무 키나 누르면 게임을 종료합니다.");
-            Console.ReadLine();
-            isGameOver = true;
-        }
+        ////3. 게임 종료
+        //public static void GameOver(string str)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("\t\t---------------------------------\n\n");
+        //    Console.WriteLine("\t\t-----------사망하셨습니다.--------\n\n");
+        //    Console.WriteLine("\t\t---------------------------------\n\n");
+        //    Console.WriteLine(str);//사망 사유
+        //    //Console.WriteLine($"플레이어의 점수는 {Player.Score}점 입니다 !!");
+        //    //if (Player.Score > 100)
+        //    //{
+        //    //    Console.WriteLine("상당한 점수입니다 ! ! !");
+        //    //}
+        //    //else
+        //    //{
+        //    //    Console.WriteLine("형편없군요 . . 다음에는 분발해보세요!");
+        //    //}
+        //    Console.WriteLine("아무 키나 누르면 게임을 종료합니다.");
+        //    Console.ReadLine();
+        //    isGameOver = true;
+        //}
 
         //4. 씬 전환
         public static void ChangeScene(string str)

@@ -65,8 +65,19 @@ namespace OOPConsoleGame.PlayerManager
         //-> 최대체력의 10%를 회복하며 메인 씬으로 이동
         public void PlayerDie()
         {
-
             OnPlayerDied?.Invoke();//플레이어 사망 이벤트 발생
+        }
+
+        public void HealHp(int value)
+        {
+            //회복량이 최대체력 초과하면 최대체력으로, 아니면 회복량 적용.
+            this.HP = this.HP + value > MaxHP ? MaxHP : this.HP + value; 
+        }
+
+        public void HealMp(int value)
+        {
+            //회복량이 최대체력 초과하면 최대체력으로, 아니면 회복량 적용.
+            this.MP = this.MP + value > MaxMP ? MaxMP : this.MP + value;
         }
     }
 }
