@@ -7,14 +7,14 @@ using static OOPConsoleGame.PlayerManager.Player;
 
 namespace OOPConsoleGame.PlayerManager
 {
+    //플레이어 현재 위치
+    public struct Position
+    {
+        public int x;
+        public int y;
+    }
     public class Player
     {
-        //플레이어 현재 위치
-        public struct Position
-        {
-            public int x;
-            public int y;
-        }
         //플레이어 맵 위치 저장 stack
 
         public delegate void PlayerDied();

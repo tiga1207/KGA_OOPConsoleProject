@@ -9,7 +9,10 @@ namespace OOPConsoleGame.Management
     public class UtilManager
     {
         //Print text delay
-
+        public void DelayedPrint(string str)
+        {
+            
+        }
 
     }
 }

@@ -22,8 +22,6 @@ namespace OOPConsoleGame.PlayerManager.Item
         //아이템 타입
         public ItemType Type { get; protected set; }
 
-        //아이템(소모, 장착)을 획일화 시키기 위해 추상화 메서드 사용
-        public abstract void Use(Player player); 
-
+       
     }
 }
