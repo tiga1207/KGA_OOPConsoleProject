@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleGame.Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOPConsoleGame.Scenes
 {
-    public class EquipInvenScene
+    public class EquipInvenScene : SceneManager
     {
 
         //장착한 장비창

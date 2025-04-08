@@ -54,8 +54,12 @@ namespace OOPConsoleGame.PlayerManager
             this.MaxMP = maxMP;
             this.ATK = atk;
             this.Gold = gold;
+        }
+        public void Move() //플레이어 좌표 움직임
+        {
 
         }
+
 
         //플레이어 사망 시
         //-> 최대체력의 10%를 회복하며 메인 씬으로 이동
