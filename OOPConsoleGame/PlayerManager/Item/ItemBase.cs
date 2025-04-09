@@ -22,6 +22,6 @@ namespace OOPConsoleGame.PlayerManager.Item
         //아이템 타입
         public ItemType Type { get; protected set; }
 
-       
+        public abstract void Use(Player player);
     }
 }

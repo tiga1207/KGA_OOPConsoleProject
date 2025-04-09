@@ -26,5 +26,29 @@ namespace OOPConsoleGame.Scenes
         //1) 장착 해제 
         //-> 해제 시 장비창에서 해당 장비 제거 및
         //   인벤토리에 해당 아이템 추가.
+        public override void Input()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void NextStep()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Render()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Result()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

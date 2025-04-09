@@ -30,5 +30,29 @@ namespace OOPConsoleGame.Scenes
 
         //4. 되돌아가기
         //이전 맵으로 이동.
+        public override void Input()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void NextStep()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Render()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Result()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

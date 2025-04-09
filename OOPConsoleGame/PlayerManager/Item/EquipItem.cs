@@ -41,5 +41,10 @@ namespace OOPConsoleGame.PlayerManager.Item
                     break;
             }
         }
+
+        public override void Use(Player player)
+        {
+            
+        }
     }
 }

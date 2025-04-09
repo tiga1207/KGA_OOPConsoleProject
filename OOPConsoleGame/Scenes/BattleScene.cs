@@ -39,14 +39,14 @@ namespace OOPConsoleGame.Scenes
             Console.WriteLine("\t\t------------전투 진행 중----------\n\n");
             Console.WriteLine("\t\t---------------------------------\n\n");
         }
-        public override void Choice()
-        {
-            Console.WriteLine("1. 공격하기"); // 특정 스탯 이상 -> 공격 성공, 아니면 실패
-            Console.WriteLine("2. 방어하기"); // 특정 스탯 이상일 경우 방어 성공. 아니면 체력 감소
-            Console.WriteLine("3. 도망가기");
+        // public override void Choice()
+        // {
+        //     Console.WriteLine("1. 공격하기"); // 특정 스탯 이상 -> 공격 성공, 아니면 실패
+        //     Console.WriteLine("2. 방어하기"); // 특정 스탯 이상일 경우 방어 성공. 아니면 체력 감소
+        //     Console.WriteLine("3. 도망가기");
 
-        }
-
+        // }
+/*
         public override void NextStep()
         {
             switch (input)
@@ -89,7 +89,7 @@ namespace OOPConsoleGame.Scenes
             }
         }
 
-
+*/
         public override void Result()
         {
             switch (input)
@@ -97,7 +97,7 @@ namespace OOPConsoleGame.Scenes
                 case ConsoleKey.D2:
                     if (GameManager.Player1.HP <= 0)
                     {
-                        GameManager.GameOver("적에게 완패했습니다...");
+                        // GameManager.GameOver("적에게 완패했습니다...");
                     }
                     break;
                 case ConsoleKey.D3:
@@ -107,6 +107,21 @@ namespace OOPConsoleGame.Scenes
                     Console.WriteLine("잘못된 입력입니다. . .");
                     break;
             }
+        }
+
+        public override void Input()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void NextStep()
+        {
+            throw new NotImplementedException();
         }
     }
 }

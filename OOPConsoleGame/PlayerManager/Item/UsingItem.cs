@@ -28,7 +28,7 @@ namespace OOPConsoleGame.PlayerManager.Item
         }
 
         //아이템 사용 효과 메서드
-        public void Use(Player player)
+        public override void Use(Player player)
         {
             switch (Target)
             {
