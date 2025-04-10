@@ -1,4 +1,5 @@
 ﻿using OOPConsoleGame.PlayerManager;
+using OOPConsoleGame.PlayerManager.Inven;
 using OOPConsoleGame.PlayerManager.Item;
 using OOPConsoleGame.Scenes;
 using System;
@@ -33,16 +34,15 @@ namespace OOPConsoleGame.Management
         public static void GameStart()
         {
             //초기 값 세팅
+            //커서 깜빡임 안 보이게
+            Console.CursorVisible = false;
 
             //1. 게임 종료 조건 설정
             isGameOver = false;
 
             //2. 플레이어 초기 설정
-            //최대(체력,마나),공격력,보유골드
+            //최대(체력,마나),공격력,보유골드,인벤,장비창
             player = new Player(100, 100, 10, 0);
-            //인벤토리
-            
-            //장비창
 
             //플레이어 사망 이벤트 구독
             player.OnPlayerDied += PlayerDied;
@@ -53,7 +53,7 @@ namespace OOPConsoleGame.Management
 
             //씬들 추가 될 때마다 딕셔너리에 추가 선언 ex) scene.Add(string, new SceneManger());
             scene.Add("Battle", new BattleScene()); //전투씬
-            scene.Add("Field", new FieldScene()); //투기장
+            scene.Add("Field", new FieldSceneBase()); //투기장
             scene.Add("Main", new MainScene()); //메인
             scene.Add("Store", new StoreScene()); //상점
             scene.Add("Title", new TitleScene()); //타이틀
@@ -62,6 +62,8 @@ namespace OOPConsoleGame.Management
 
             //초기 씬 세팅
             currentScene = scene["Title"];   
+            //플레이어 맵 저장 스택
+            player.mapStack.Push(currentScene.sceneName);
         }
 
         private static void PlayerDied()
@@ -72,6 +74,8 @@ namespace OOPConsoleGame.Management
             Console.WriteLine("\t\t---------------------------------\n\n");
             Console.WriteLine("아무 키나 누르면 게임을 메인 마을로 이동합니다.");
             Console.ReadLine();
+            player.mapStack =null;
+            player.mapStack.Push("Title");
             ChangeScene("Main");
             //최소 1은 회복할 수 있도록 구성.
             player.HP = (int)(player.MaxHP * 0.1) > 0 ? (int)(player.MaxHP * 0.1) : 1;
@@ -87,42 +91,31 @@ namespace OOPConsoleGame.Management
 
                 currentScene.Render();
                 currentScene.Input();
-                currentScene.Wait();
+                Console.WriteLine();
+                currentScene.Update();
                 currentScene.Result();
             }
         }
         
 
         ////3. 게임 종료
-        //public static void GameOver(string str)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("\t\t---------------------------------\n\n");
-        //    Console.WriteLine("\t\t-----------사망하셨습니다.--------\n\n");
-        //    Console.WriteLine("\t\t---------------------------------\n\n");
-        //    Console.WriteLine(str);//사망 사유
-        //    //Console.WriteLine($"플레이어의 점수는 {Player.Score}점 입니다 !!");
-        //    //if (Player.Score > 100)
-        //    //{
-        //    //    Console.WriteLine("상당한 점수입니다 ! ! !");
-        //    //}
-        //    //else
-        //    //{
-        //    //    Console.WriteLine("형편없군요 . . 다음에는 분발해보세요!");
-        //    //}
-        //    Console.WriteLine("아무 키나 누르면 게임을 종료합니다.");
-        //    Console.ReadLine();
-        //    isGameOver = true;
-        //}
+        public static void GameOver(string str)
+        {
+           Console.Clear();
+           Console.WriteLine(str);//사망 사유
+           Console.WriteLine("\t\t---------------------------------\n\n");
+           Console.WriteLine("\t\t-----------게임을 종료합니다.--------\n\n");
+           Console.WriteLine("\t\t---------------------------------\n\n");
+
+           UtilManager.ReadAnyKey("아무 키나 누르면 게임을 종료합니다.");
+           isGameOver = true;
+        }
 
         //4. 씬 전환
         public static void ChangeScene(string str)
         {
             currentScene = scene[str];
+            player.mapStack.Push(currentScene.sceneName); //맵 스택에 방문했던 씬 추가.
         }
-
-
-
-
     }
 }

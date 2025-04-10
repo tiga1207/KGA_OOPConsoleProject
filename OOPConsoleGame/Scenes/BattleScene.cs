@@ -33,95 +33,95 @@ namespace OOPConsoleGame.Scenes
         //2. 플레이어 사망 시
 
         //-> 이전 씬으로 복귀.(만약 몬스터가 죽지 않는다면 몬스터 심볼은 파괴되지 않는다.)
+        private ConsoleKey input;
+        private Monster.Monster monster;
+
+        public BattleScene()
+        {
+            sceneName = "Battle";
+        }
+
         public override void Render()
         {
-            Console.WriteLine("\t\t---------------------------------\n\n");
-            Console.WriteLine("\t\t------------전투 진행 중----------\n\n");
-            Console.WriteLine("\t\t---------------------------------\n\n");
-        }
-        // public override void Choice()
-        // {
-        //     Console.WriteLine("1. 공격하기"); // 특정 스탯 이상 -> 공격 성공, 아니면 실패
-        //     Console.WriteLine("2. 방어하기"); // 특정 스탯 이상일 경우 방어 성공. 아니면 체력 감소
-        //     Console.WriteLine("3. 도망가기");
+            Console.Clear();
+            Console.WriteLine("전투가 시작됩니다");
 
-        // }
-/*
-        public override void NextStep()
-        {
-            switch (input)
-            {
-                case ConsoleKey.D1:
-                    if (GameManager.Player1.AllStatus >= 10)
-                    {
-                        Console.WriteLine($" 공격 성공. . . 상대에게 {GameManager.Player1.AllStatus}만큼 데미지를 줬습니다.");
-                        //적에게 데미지 주는 로직
-                        GameManager.Player1.Score += 10;
-                    }
-                    else
-                    {
-                        Console.WriteLine("공격 실패. . .");
-                        GameManager.Player1.Score += 1;
-                    }
-                    break;
-                case ConsoleKey.D2:
-                    if (GameManager.Player1.AllStatus >= 20)
-                    {
-                        Console.WriteLine(" 방어 성공. . . ");
-                        GameManager.Player1.Score += 10;
-                    }
-                    else
-                    {
-                        //추후에 적 공격력 - 플레이어 스탯/2 만큼 데미지 들어가도록
-                        //(단, 공격력 <플레이어 스탯/2 일 경우 데미지 5만큼 감소하도록)
-                        Console.WriteLine($"방어 실패. . . 체력이 20 감소합니다.");
-                        GameManager.Player1.HP -= 20;
-                        Console.WriteLine($"플레이어 현재 체력은 {GameManager.Player1.HP} 입니다.");
-                        GameManager.Player1.Score += 1;
-                    }
-                    break;
-                case ConsoleKey.D3:
-                    Console.WriteLine("투기장으로 들어갑니다. . .");
-                    break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다. . .");
-                    break;
-            }
-        }
+            Console.WriteLine($"[플레이어] HP: {GameManager.Player1.HP}/{GameManager.Player1.MaxHP}");
+            Console.WriteLine($"[{monster.name}] HP: {monster.hp}/{monster.maxHp}");
 
-*/
-        public override void Result()
-        {
-            switch (input)
-            {
-                case ConsoleKey.D2:
-                    if (GameManager.Player1.HP <= 0)
-                    {
-                        // GameManager.GameOver("적에게 완패했습니다...");
-                    }
-                    break;
-                case ConsoleKey.D3:
-                    GameManager.ChangeScene("Field");
-                    break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다. . .");
-                    break;
-            }
+            Console.WriteLine("\n[1] 싸우기");
+            Console.WriteLine("[2] 도망가기");
         }
 
         public override void Input()
         {
-            throw new NotImplementedException();
+            input = Console.ReadKey(true).Key;
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            switch (input)
+            {
+                case ConsoleKey.D1:
+                    // 플레이어 공격
+                    monster.TakeDamage(GameManager.Player1);
+                    Console.WriteLine($"\n 플레이어의 공격! {GameManager.Player1.ATK} 데미지를 입혔습니다!");
+
+                    if (monster.isDead)
+                    {
+                        Console.WriteLine($"\n {monster.name}을(를) 처치했습니다!");
+                        Console.WriteLine($" {monster.gold} G를 획득했습니다!");
+                        GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                        return;
+                    }
+
+                    // 몬스터 반격
+                    int beforeHp = GameManager.Player1.HP;
+                    monster.AttackPlayer(GameManager.Player1);
+                    int takenDmg = beforeHp - GameManager.Player1.HP;
+
+                    if (takenDmg <= 0)
+                    {
+                        Console.WriteLine($"{monster.name}의 공격이 빗나갔습니다!");
+                    }
+                    else if (takenDmg > monster.damage)
+                    {
+                        Console.WriteLine($"{monster.name}의 크리티컬 공격! {takenDmg} 데미지!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{monster.name}의 공격! {takenDmg} 데미지!");
+                    }
+
+                    if (GameManager.Player1.HP <= 0)
+                    {
+                        Console.WriteLine("\n당신은 쓰러졌습니다...");
+                        GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                    }
+                    break;
+
+                case ConsoleKey.D2:
+                    // 도망 처리
+                    monster.Reset();
+                    Console.WriteLine("\n도망쳤습니다. 몬스터는 체력을 회복합니다.");
+                    GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                    break;
+
+                default:
+                    Console.WriteLine("잘못된 입력입니다.");
+                    break;
+            }
         }
 
-        public override void NextStep()
+        public override void Result()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("\n 아무 키나 누르면 다음 턴으로 진행됩니다...");
+            Console.ReadKey(true);
+        }
+
+        public void SetMonster(Monster.Monster m)
+        {
+            monster = m;
         }
     }
 }

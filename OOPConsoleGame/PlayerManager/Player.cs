@@ -1,4 +1,5 @@
-﻿using OOPConsoleGame.PlayerManager.Inven;
+﻿using OOPConsoleGame.Management;
+using OOPConsoleGame.PlayerManager.Inven;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,11 @@ using static OOPConsoleGame.PlayerManager.Player;
 namespace OOPConsoleGame.PlayerManager
 {
     //플레이어 현재 위치
-    public struct Position
-    {
-        public int x;
-        public int y;
-    }
+
     public class Player
     {
         //플레이어 맵 위치 저장 stack
-
+        public Stack<string> mapStack;
         public delegate void PlayerDied();
         public event PlayerDied OnPlayerDied;
         //플레이어 최대 체력, 최대 마나, 현재 체력, 현재 마나
@@ -53,7 +50,11 @@ namespace OOPConsoleGame.PlayerManager
         //인벤토리
         public Inventory inventory;
         public EquipInven equipInven;
+        //플레이어 위치
+        public Vector2 PlayerPos;
         
+        //플레이어 맵
+        public bool[,]map;
         public Player(int maxHP, int maxMP, int atk, int gold )
         {
             this.MaxHP = maxHP;
@@ -62,10 +63,53 @@ namespace OOPConsoleGame.PlayerManager
             this.Gold = gold;
             inventory = new Inventory();
             equipInven = new EquipInven();
+            mapStack = new Stack<string>();
         }
-        public void Move() //플레이어 좌표 움직임
+        public void RenderPlayer()
         {
+            Console.SetCursorPosition(PlayerPos.x, PlayerPos.y);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write('P');
+            Console.ResetColor();
+        }
 
+        public void InputControll(ConsoleKey input)
+        {
+            switch (input)
+            {
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.RightArrow:
+                    Move(input);
+                    break;
+
+            }
+        }
+        public void Move(ConsoleKey input) //플레이어 좌표 움직임
+        {
+            Vector2 targetPos = PlayerPos;
+
+            switch (input)
+            {
+                case ConsoleKey.UpArrow:
+                    targetPos.y--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    targetPos.y++;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    targetPos.x--;
+                    break;
+                case ConsoleKey.RightArrow:
+                    targetPos.x++;
+                    break;
+            }
+
+            if (map[targetPos.y, targetPos.x] == true)
+            {
+                PlayerPos = targetPos;
+            }
         }
 
 

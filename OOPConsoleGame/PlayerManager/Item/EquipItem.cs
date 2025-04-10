@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OOPConsoleGame.Management;
 
 namespace OOPConsoleGame.PlayerManager.Item
 {
@@ -44,7 +45,12 @@ namespace OOPConsoleGame.PlayerManager.Item
 
         public override void Use(Player player)
         {
-            
+            player.equipInven.Equip(this, player,player.inventory);
+        }
+
+        public override void Interact(Player player)
+        {
+            player.inventory.AddItem(this, 1);
         }
     }
 }

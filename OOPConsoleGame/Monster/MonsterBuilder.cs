@@ -24,9 +24,9 @@ namespace OOPConsoleGame.Monster
         }
 
 
-        public IMonsterBuilder setReward(ItemBase item)
+        public IMonsterBuilder setReward(int gold)
         {
-            monster.item = item;
+            monster.gold = gold;
             return this;
         }
         public IMonsterBuilder setDmg(int damage)
@@ -38,6 +38,8 @@ namespace OOPConsoleGame.Monster
         {
             return monster;
         }
+
+        
 
     }
 }

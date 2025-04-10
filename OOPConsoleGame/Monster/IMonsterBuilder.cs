@@ -12,7 +12,7 @@ namespace OOPConsoleGame.Monster
         IMonsterBuilder setName(string name);
         IMonsterBuilder setDmg(int damage);
         IMonsterBuilder setHp(int hp, int maxHp);
-        IMonsterBuilder setReward(ItemBase item);
+        IMonsterBuilder setReward(int gold);
         Monster Build();
 
     }

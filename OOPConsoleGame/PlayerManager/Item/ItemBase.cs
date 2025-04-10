@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OOPConsoleGame.Management;
 
 namespace OOPConsoleGame.PlayerManager.Item
 {
     public enum ItemType { UsingItem, EquipItem } //사용 아이템, 장착 아이템
     //아이템 공통 클래스
-    public abstract class ItemBase
+    public abstract class ItemBase : ObjectManager
     {
         //아이템 이름
         public string Name { get; set; }

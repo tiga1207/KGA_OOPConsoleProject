@@ -16,7 +16,6 @@ namespace OOPConsoleGame.Management
         public abstract void Input();
         public abstract void Update();
         public abstract void Result();
-        public abstract void NextStep();
 
         public void Wait()
         {

@@ -1,4 +1,6 @@
 ﻿using OOPConsoleGame.Management;
+using OOPConsoleGame.PlayerManager.Inven;
+using OOPConsoleGame.PlayerManager.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,29 +28,98 @@ namespace OOPConsoleGame.Scenes
         //1) 장착 해제 
         //-> 해제 시 장비창에서 해당 장비 제거 및
         //   인벤토리에 해당 아이템 추가.
-        public override void Input()
-        {
-            throw new NotImplementedException();
-        }
+        
+         private ConsoleKey input;
 
-        public override void NextStep()
+        public EquipInvenScene()
         {
-            throw new NotImplementedException();
+            sceneName = "Equip";
         }
 
         public override void Render()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("장비 리스트\n\n");
+
+            EquipInven equipInven = GameManager.Player1.equipInven;
+
+            // 1. 장비가 없는 경우
+            if (!equipInven.isEquip)
+            {
+                Console.WriteLine("장착한 무기가 없습니다.");
+                Console.WriteLine("\n[1] 되돌아가기");
+            }
+            else
+            {
+                // 2. 장비가 있는 경우
+                EquipItem item = equipInven.GetEquipItem();
+                Console.WriteLine($"장착 중인 무기: {item.Name}");
+                Console.WriteLine($"희귀도: {item.Rarity}");
+                Console.WriteLine($"공격력: {item.WeaponAtk}");
+                Console.WriteLine($"설명: {item.Desc}");
+
+                Console.WriteLine("\n[1] 장착 해제");
+                Console.WriteLine("[2] 되돌아가기");
+            }
         }
 
-        public override void Result()
+        public override void Input()
         {
-            throw new NotImplementedException();
+            input = Console.ReadKey(true).Key;
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public override void Result()
+        {
+            EquipInven equipInven = GameManager.Player1.equipInven;
+
+            if (!equipInven.isEquip)
+            {
+                if (input == ConsoleKey.D1)
+                {
+                    UtilManager.ReadAnyKey("장비창을 나갑니다... 아무 키나 누르세요.");
+
+                    if(GameManager.Player1.mapStack.Count >1)
+                    {
+                        GameManager.Player1.mapStack.Pop();
+                        GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                    }
+                    else
+                    {
+                        GameManager.ChangeScene("Main");
+                    }
+                }
+            }
+            else
+            {
+                switch (input)
+                {
+                    case ConsoleKey.D1:
+                        equipInven.UnEquip(GameManager.Player1, GameManager.Player1.inventory);
+                        Console.WriteLine("장비를 해제했습니다.");
+                        Console.ReadKey();
+                        break;
+                    case ConsoleKey.D2:
+                        UtilManager.ReadAnyKey("장비창을 나갑니다... 아무 키나 누르세요.");
+
+                        if(GameManager.Player1.mapStack.Count >1)
+                        {
+                            GameManager.Player1.mapStack.Pop();
+                            GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                        }
+                        else
+                        {
+                            GameManager.ChangeScene("Main");
+                        }
+                        break;
+
+
+                }
+            }
         }
     }
 }

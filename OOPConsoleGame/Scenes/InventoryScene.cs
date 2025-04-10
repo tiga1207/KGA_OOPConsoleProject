@@ -18,11 +18,6 @@ namespace OOPConsoleGame.Scenes
             throw new NotImplementedException();
         }
 
-        public override void NextStep()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Render()
         {
             throw new NotImplementedException();

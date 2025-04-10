@@ -46,8 +46,24 @@ namespace OOPConsoleGame.PlayerManager.Inven
         {
             slots.RemoveAt(index);
         }
+        public void RemoveItem(ItemBase item)
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i].Item.Name == item.Name)
+                {
+                    slots.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+        //4. 슬롯 반환
+        public List<InventorySlot> GetSlots()
+        {
+            return slots;
+        }
 
-        //4. 사용 아이템 사용
+        //5. 사용 아이템 사용
         // 아이템 사용시 count -1 or count 만큼 차감. 
         public void UsingItemUsed(int index, Player player, int count = 1) 
         {
@@ -80,7 +96,7 @@ namespace OOPConsoleGame.PlayerManager.Inven
 
         }
 
-        //5. 장착 아이템 사용
+        //6. 장착 아이템 사용
         
         public void EquipItemUsed(int index, Player player)
         {

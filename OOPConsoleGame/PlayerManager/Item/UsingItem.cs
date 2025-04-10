@@ -40,5 +40,11 @@ namespace OOPConsoleGame.PlayerManager.Item
                     break;
             }
         }
+
+        public override void Interact(Player player)
+        {
+            player.inventory.AddItem(this, 1);
+
+        }
     }
 }

@@ -1,10 +1,13 @@
-﻿namespace OOPConsoleGame
+﻿using OOPConsoleGame.Management;
+
+namespace OOPConsoleGame
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            GameManager.GameStart();
+            GameManager.GameUpdate();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace OOPConsoleGame.PlayerManager.Inven
         //-> 장착한 무기 이름, 희귀도, 설명 나열.
         //장착한 아이템이 있는지 여부 변수(isEquip)
         private EquipItem equipedItem = null;
-        private bool isEquip = false;
+        public bool isEquip = false;
 
         //1. 무기 장착 
         public void Equip(EquipItem equipItem, Player player, Inventory inventory)
@@ -62,6 +62,14 @@ namespace OOPConsoleGame.PlayerManager.Inven
                 isEquip=false;
             }
         }
+
+        //3. 장착 아이템 불러오기.
+        public EquipItem GetEquipItem()
+        {
+            return equipedItem;
+        }
+
+
 
     }
 }
