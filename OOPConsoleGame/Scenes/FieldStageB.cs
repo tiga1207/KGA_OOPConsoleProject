@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OOPConsoleGame.Scenes
 {
-    public class FieldStage2 : FieldSceneBase
+    public class FieldStageB : FieldSceneBase
     {
-        public FieldStage2()
+        public FieldStageB()
         {
             sceneName = "Stage2";
 

@@ -75,11 +75,11 @@ namespace OOPConsoleGame.Scenes
             }
         }
 
-        protected bool IsWalkable(Vector2 pos)
-        {
-            return pos.y >= 0 && pos.y < map.GetLength(0)
-                && pos.x >= 0 && pos.x < map.GetLength(1)
-                && map[pos.y, pos.x];
-        }
+        //protected bool IsWalkable(Vector2 pos)
+        //{
+        //    return pos.y >= 0 && pos.y < map.GetLength(0)
+        //        && pos.x >= 0 && pos.x < map.GetLength(1)
+        //        && map[pos.y, pos.x];
+        //}
     }
 }

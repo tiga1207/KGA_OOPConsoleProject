@@ -42,7 +42,9 @@ namespace OOPConsoleGame.Management
 
             //2. 플레이어 초기 설정
             //최대(체력,마나),공격력,보유골드,인벤,장비창
-            player = new Player(100, 100, 10, 0);
+            player = new Player(100, 100, 10, 10);
+            player.HP = player.MaxHP;
+            player.MP = player.MaxMP;
 
             //플레이어 사망 이벤트 구독
             player.OnPlayerDied += PlayerDied;
@@ -53,7 +55,8 @@ namespace OOPConsoleGame.Management
 
             //씬들 추가 될 때마다 딕셔너리에 추가 선언 ex) scene.Add(string, new SceneManger());
             scene.Add("Battle", new BattleScene()); //전투씬
-            scene.Add("Field", new FieldSceneBase()); //투기장
+            scene.Add("Stage1", new FieldStageA()); //투기장
+            scene.Add("Stage2", new FieldStageB()); //투기장
             scene.Add("Main", new MainScene()); //메인
             scene.Add("Store", new StoreScene()); //상점
             scene.Add("Title", new TitleScene()); //타이틀
@@ -117,6 +120,11 @@ namespace OOPConsoleGame.Management
         {
             currentScene = scene[str];
             player.mapStack.Push(currentScene.sceneName); //맵 스택에 방문했던 씬 추가.
+            currentScene.Enter();
+        }
+        public static SceneManager GetScene(string name)
+        {
+            return scene.ContainsKey(name) ? scene[name] : null;
         }
     }
 }

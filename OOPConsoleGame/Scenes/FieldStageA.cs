@@ -35,24 +35,29 @@ namespace OOPConsoleGame.Scenes
 
             gameObjects = new List<ObjectManager>();
             gameObjects.Add(new Place("Main", 'M', new Vector2(1, 1)));
-            gameObjects.Add(new Place("StageB", 'B', new Vector2(6, 1)));
+            gameObjects.Add(new Place("Stage2", 'B', new Vector2(6, 1)));
             gameObjects.Add(new UsingItem("HP 포션",20,"필드에 존재하는 Hp회복 물약",true,EffectTarget.Hp,20,new Vector2(1, 2)));
         }
 
         public override void Enter()
         {
+
             string currentMap = GameManager.Player1.mapStack.Pop();
             string prevSceneName = GameManager.Player1.mapStack.Peek();
+            Console.WriteLine($"[디버그] Enter() 실행됨. 이전 맵: {prevSceneName}");
+            Console.WriteLine($"[디버그] 시작 위치: {GameManager.Player1.PlayerPos.x}, {GameManager.Player1.PlayerPos.y}");
             GameManager.Player1.mapStack.Push(currentMap);
             if (prevSceneName == "Main")
             {
-                GameManager.Player1.PlayerPos = new Vector2(1, 1);
+                GameManager.Player1.PlayerPos = new Vector2(2, 1);
             }
             else if (prevSceneName == "Stage2")
             {
                 GameManager.Player1.PlayerPos = new Vector2(6, 1);
             }
             GameManager.Player1.map = map;
+
+            
         }
     }    
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OOPConsoleGame.Management;
 using OOPConsoleGame.PlayerManager;
+using OOPConsoleGame.Scenes;
 
 namespace OOPConsoleGame.Monster
 {
@@ -76,7 +77,13 @@ namespace OOPConsoleGame.Monster
 
         public override void Interact(Player player)
         {
-            GameManager.ChangeScene("Battle");
+            var battleScene = GameManager.GetScene("Battle") as BattleScene;
+
+            if (battleScene != null)
+            {
+                battleScene.SetMonster(this);
+                GameManager.ChangeScene("Battle");
+            }
         }
     }
 }
