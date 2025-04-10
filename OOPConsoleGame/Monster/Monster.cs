@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OOPConsoleGame.Management;
 using OOPConsoleGame.PlayerManager;
 
 namespace OOPConsoleGame.Monster
 {
-    public class Monster
+    public class Monster : ObjectManager
     {
         public string name;
         //최대 체력, 현재 체력
@@ -17,6 +18,11 @@ namespace OOPConsoleGame.Monster
         public int gold;
 
         public bool isDead = false;
+
+        public Monster()
+        : base(ConsoleColor.Red, 'M', new Vector2(0, 0), true)
+    {
+    }
         
         //몬스터 공격 로직
         public void AttackPlayer(Player player)
@@ -56,7 +62,6 @@ namespace OOPConsoleGame.Monster
             isDead = true;
             RewardToPlayer(player);
             //플레이어 현재 Position의 몬스터 심볼 파괴(제거)
-
         }
         //보상 부여
         public void RewardToPlayer(Player player)
@@ -69,7 +74,9 @@ namespace OOPConsoleGame.Monster
             hp = maxHp;
         }
 
-
-
+        public override void Interact(Player player)
+        {
+            GameManager.ChangeScene("Battle");
+        }
     }
 }

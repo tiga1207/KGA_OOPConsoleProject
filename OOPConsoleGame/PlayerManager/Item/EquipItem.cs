@@ -17,7 +17,19 @@ namespace OOPConsoleGame.PlayerManager.Item
         //2) 공격력
         public int WeaponAtk;
 
+        //Vetor에 따른 생성자 오버로딩
+        public EquipItem(string name, int price, string desc, int atk, Rarity rarity, Vector2 position)
+            : base(ConsoleColor.DarkBlue, 'E', position, true)
+        {
+            Init(name, price, desc, atk, rarity);
+        }
+
         public EquipItem(string name, int price, string desc, int atk, Rarity rarity)
+            : base(ConsoleColor.DarkBlue, 'E', new Vector2(-1, -1), true) // 의미 없는 위치로 설정
+        {
+            Init(name, price, desc, atk, rarity);
+        }
+        private void Init(string name, int price, string desc, int atk, Rarity rarity)
         {
             Type = ItemType.EquipItem;
             Name = name;

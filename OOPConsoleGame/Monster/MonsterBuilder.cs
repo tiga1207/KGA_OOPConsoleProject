@@ -1,4 +1,5 @@
-﻿using OOPConsoleGame.PlayerManager.Item;
+﻿using OOPConsoleGame.Management;
+using OOPConsoleGame.PlayerManager.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace OOPConsoleGame.Monster
     {
         private Monster monster = new Monster();
 
-        public IMonsterBuilder setName(string name)
+        public IMonsterBuilder SetName(string name)
         {
             monster.name = name;
             return this;
         }
-        public IMonsterBuilder setHp(int hp, int maxHp)
+        public IMonsterBuilder SetHp(int hp, int maxHp)
         {
             monster.hp = hp;
             monster.maxHp = maxHp;
@@ -24,22 +25,37 @@ namespace OOPConsoleGame.Monster
         }
 
 
-        public IMonsterBuilder setReward(int gold)
+        public IMonsterBuilder SetReward(int gold)
         {
             monster.gold = gold;
             return this;
         }
-        public IMonsterBuilder setDmg(int damage)
+        public IMonsterBuilder SetDmg(int damage)
         {
             monster.damage = damage;
+            return this;
+        }
+        public IMonsterBuilder SetPosition(Vector2 pos)
+        {
+            monster.position = pos;
+            return this;
+        }
+
+        public IMonsterBuilder SetSymbol(char symbol)
+        {
+            monster.symbol = symbol;
+            return this;
+        }
+
+        public IMonsterBuilder SetColor(ConsoleColor color)
+        {
+            monster.color = color;
             return this;
         }
         public Monster Build()
         {
             return monster;
         }
-
-        
 
     }
 }

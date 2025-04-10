@@ -74,7 +74,8 @@ namespace OOPConsoleGame.Management
             Console.WriteLine("\t\t---------------------------------\n\n");
             Console.WriteLine("아무 키나 누르면 게임을 메인 마을로 이동합니다.");
             Console.ReadLine();
-            player.mapStack =null;
+            //스택 초기화
+            player.mapStack.Clear();
             player.mapStack.Push("Title");
             ChangeScene("Main");
             //최소 1은 회복할 수 있도록 구성.

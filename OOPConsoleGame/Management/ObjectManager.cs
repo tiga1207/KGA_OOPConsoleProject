@@ -12,12 +12,14 @@ namespace OOPConsoleGame.Management
             public ConsoleColor color;
             public char symbol;
             public Vector2 position;
+            public bool isOnce;
 
-            public void GameObject(ConsoleColor color, char symbol, Vector2 position)
+            public ObjectManager(ConsoleColor color, char symbol, Vector2 position, bool isOnce)
             {
                 this.color = color;
                 this.symbol = symbol;
                 this.position = position;
+                this.isOnce = isOnce;
             }
 
             public void Print()

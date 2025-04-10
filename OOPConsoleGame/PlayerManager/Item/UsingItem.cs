@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OOPConsoleGame.Management;
 
 namespace OOPConsoleGame.PlayerManager.Item
 {
@@ -16,7 +17,18 @@ namespace OOPConsoleGame.PlayerManager.Item
         public EffectTarget Target { get; set; }
         public int EffectAmount { get; set; }
 
+        //생성자 오버로딩
+        public UsingItem(string name, int price, string desc, bool isOverlap, EffectTarget effectTarget, int effectAmount ,Vector2 position) 
+        :base(ConsoleColor.DarkBlue, 'U', position, true)
+        {
+            Init(name,price,desc,isOverlap,effectTarget,effectAmount);
+        }
         public UsingItem(string name, int price, string desc, bool isOverlap, EffectTarget effectTarget, int effectAmount) 
+        :base(ConsoleColor.DarkBlue, 'U', new Vector2(-1, -1), true)
+        {
+            Init(name,price,desc,isOverlap,effectTarget,effectAmount);
+        }
+        private void Init(string name, int price, string desc, bool isOverlap, EffectTarget effectTarget, int effectAmount)
         {
             Name = name;
             Price = price;

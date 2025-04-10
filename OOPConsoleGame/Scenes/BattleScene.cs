@@ -32,7 +32,7 @@ namespace OOPConsoleGame.Scenes
 
         //2. 플레이어 사망 시
 
-        //-> 이전 씬으로 복귀.(만약 몬스터가 죽지 않는다면 몬스터 심볼은 파괴되지 않는다.)
+        //-> 이전 씬으로 복귀.
         private ConsoleKey input;
         private Monster.Monster monster;
 
@@ -96,15 +96,14 @@ namespace OOPConsoleGame.Scenes
                     if (GameManager.Player1.HP <= 0)
                     {
                         Console.WriteLine("\n당신은 쓰러졌습니다...");
-                        GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                        GameManager.ChangeScene(GameManager.Player1.mapStack.Pop());
                     }
                     break;
 
                 case ConsoleKey.D2:
                     // 도망 처리
-                    monster.Reset();
-                    Console.WriteLine("\n도망쳤습니다. 몬스터는 체력을 회복합니다.");
-                    GameManager.ChangeScene(GameManager.Player1.mapStack.Peek());
+                    Console.WriteLine("\n도망쳤습니다.");
+                    GameManager.ChangeScene(GameManager.Player1.mapStack.Pop());
                     break;
 
                 default:

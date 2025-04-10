@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OOPConsoleGame.Management;
+public enum ItemType { UsingItem, EquipItem } //사용 아이템, 장착 아이템
 
 namespace OOPConsoleGame.PlayerManager.Item
 {
-    public enum ItemType { UsingItem, EquipItem } //사용 아이템, 장착 아이템
     //아이템 공통 클래스
     public abstract class ItemBase : ObjectManager
     {
+        protected ItemBase(ConsoleColor color, char symbol, Vector2 position, bool isOnce) : base(color, symbol, position, isOnce)
+        {
+        }
+
         //아이템 이름
         public string Name { get; set; }
 

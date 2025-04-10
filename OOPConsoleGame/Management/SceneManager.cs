@@ -17,11 +17,6 @@ namespace OOPConsoleGame.Management
         public abstract void Update();
         public abstract void Result();
 
-        public void Wait()
-        {
-            Console.WriteLine("아무 키나 눌러 진행하세요");
-            Console.ReadLine();
-        }
-
+        public virtual void Enter(){}
     }
 }
