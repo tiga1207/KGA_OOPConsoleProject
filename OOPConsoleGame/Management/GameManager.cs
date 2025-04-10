@@ -1,4 +1,5 @@
 ﻿using OOPConsoleGame.PlayerManager;
+using OOPConsoleGame.PlayerManager.Item;
 using OOPConsoleGame.Scenes;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace OOPConsoleGame.Management
         private static Player player;
         public static Player Player1 { get { return player; } }
 
+        //아이템
+        public static ItemBase[] item;
+
         //게임 종료 조건
         public static bool isGameOver;
 
@@ -36,6 +40,9 @@ namespace OOPConsoleGame.Management
             //2. 플레이어 초기 설정
             //최대(체력,마나),공격력,보유골드
             player = new Player(100, 100, 10, 0);
+            //인벤토리
+            
+            //장비창
 
             //플레이어 사망 이벤트 구독
             player.OnPlayerDied += PlayerDied;
@@ -66,8 +73,9 @@ namespace OOPConsoleGame.Management
             Console.WriteLine("아무 키나 누르면 게임을 메인 마을로 이동합니다.");
             Console.ReadLine();
             ChangeScene("Main");
-            player.HP = (int)(player.MaxHP * 0.1) >0 ? (int)(player.MaxHP * 0.1) : 1;
-            player.MP = (int)(player.MaxMP * 0.1);
+            //최소 1은 회복할 수 있도록 구성.
+            player.HP = (int)(player.MaxHP * 0.1) > 0 ? (int)(player.MaxHP * 0.1) : 1;
+            player.MP = (int)(player.MaxMP * 0.1) > 0 ? (int)(player.MaxMP * 0.1) : 1;
         }
 
         //2. 게임 구동

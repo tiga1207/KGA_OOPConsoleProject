@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleGame.PlayerManager.Item;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,11 @@ namespace OOPConsoleGame.Monster
 {
     public interface IMonsterBuilder
     {
+        IMonsterBuilder setName(string name);
+        IMonsterBuilder setDmg(int damage);
+        IMonsterBuilder setHp(int hp, int maxHp);
+        IMonsterBuilder setReward(ItemBase item);
+        Monster Build();
+
     }
 }

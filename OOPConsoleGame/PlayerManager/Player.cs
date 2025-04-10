@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleGame.PlayerManager.Inven;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,12 +49,19 @@ namespace OOPConsoleGame.PlayerManager
 
         //플레이어 보유 골드
         public int Gold { get; set;}
+        
+        //인벤토리
+        public Inventory inventory;
+        public EquipInven equipInven;
+        
         public Player(int maxHP, int maxMP, int atk, int gold )
         {
             this.MaxHP = maxHP;
             this.MaxMP = maxMP;
             this.ATK = atk;
             this.Gold = gold;
+            inventory = new Inventory();
+            equipInven = new EquipInven();
         }
         public void Move() //플레이어 좌표 움직임
         {
